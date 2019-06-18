@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('admin')->group(function () {
+    Route::get('restaurants', 'Admin\\RestaurantController@index')->name('restaurants.index');
+    Route::get('restaurants/new', 'Admin\\RestaurantController@new')->name('restaurants.new');
+    Route::post('restaurants/store', 'Admin\\RestaurantController@store')->name('restaurants.store');
+    Route::get('restaurants/edit/{restaurant}', 'Admin\\RestaurantController@edit')->name('restaurants.edit');
+    Route::post('restaurants/update/{id}', 'Admin\\RestaurantController@update')->name('restaurants.update');
+});
