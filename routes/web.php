@@ -21,4 +21,5 @@ Route::prefix('admin')->group(function () {
     Route::post('restaurants/store', 'Admin\\RestaurantController@store')->name('restaurants.store');
     Route::get('restaurants/edit/{restaurant}', 'Admin\\RestaurantController@edit')->name('restaurants.edit');
     Route::post('restaurants/update/{id}', 'Admin\\RestaurantController@update')->name('restaurants.update');
+    Route::get('restaurants/remove/{id}', 'Admin\\RestaurantController@delete')->name('restaurants.delete');
 });
