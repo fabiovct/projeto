@@ -15,11 +15,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('admin')->group(function () {
-    Route::get('restaurants', 'Admin\\RestaurantController@index')->name('restaurants.index');
-    Route::get('restaurants/new', 'Admin\\RestaurantController@new')->name('restaurants.new');
-    Route::post('restaurants/store', 'Admin\\RestaurantController@store')->name('restaurants.store');
-    Route::get('restaurants/edit/{restaurant}', 'Admin\\RestaurantController@edit')->name('restaurants.edit');
-    Route::post('restaurants/update/{id}', 'Admin\\RestaurantController@update')->name('restaurants.update');
-    Route::get('restaurants/remove/{id}', 'Admin\\RestaurantController@delete')->name('restaurants.delete');
+Route::group(['middleware'=>['auth']], function(){
+    Route::prefix('admin')->namespace('Admin')->group(function (){
+    
+    Route::prefix('restaurants')->group(function(){
+    Route::get('/', 'RestaurantController@index')->name('restaurants.index');
+    Route::get('/new', 'RestaurantController@new')->name('restaurants.new');
+    Route::post('/store', 'RestaurantController@store')->name('restaurants.store');
+    Route::get('/edit/{restaurant}', 'RestaurantController@edit')->name('restaurants.edit');
+    Route::post('/update/{id}', 'RestaurantController@update')->name('restaurants.update');
+    Route::get('/remove/{id}', 'RestaurantController@delete')->name('restaurants.delete');
+        });
+
+        Route::prefix('users')->group(function(){
+            Route::get('/', 'UserController@index')->name('users.index');
+            Route::get('/new', 'UserController@new')->name('users.new');
+            Route::post('/store', 'UserController@store')->name('users.store');
+            Route::get('/edit/{user}', 'UserController@edit')->name('users.edit');
+            Route::post('/update/{id}', 'UserController@update')->name('users.update');
+            Route::get('/remove/{id}', 'UserController@delete')->name('users.delete');
+                });
+    });
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
