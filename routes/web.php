@@ -35,9 +35,29 @@ Route::group(['middleware'=>['auth']], function(){
             Route::post('/update/{id}', 'UserController@update')->name('users.update');
             Route::get('/remove/{id}', 'UserController@delete')->name('users.delete');
                 });
+
+                Route::prefix('menu')->group(function(){
+                    Route::get('/', 'MenuController@index')->name('menus.index');
+                    Route::get('/new', 'MenuController@new')->name('menus.new');
+                    Route::post('/store', 'MenuController@store')->name('menus.store');
+                    Route::get('/edit/{menu}', 'MenuController@edit')->name('menus.edit');
+                    Route::post('/update/{id}', 'MenuController@update')->name('menus.update');
+                    Route::get('/remove/{id}', 'MenuController@delete')->name('menus.delete');
+                        });
     });
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('rel',function(){
+    $restaurant = \App\Restaurant::find(1);
+    print $restaurant->name;
+    print'<br>';
+    foreach($restaurant->menus as $m){
+        print 'items caradapio:'.$m->name;
+        print $m->price;
+        print $m->restaurant_id;
+    }
+});
