@@ -33,6 +33,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li>
+                            <a href="{{route('restaurants.index')}}"class="nav-link">Restaurantes</a>
+</li>
+<li>
+                            <a href="{{route('menus.index')}}"class="nav-link">Menus</a>
+                            </li>
+<li>
+                            <a href="{{route('users.index')}}"class="nav-link">usuários</a>
+                        </li>
 
                     </ul>
 
